@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Para mi princesa 💖</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+background:#ffe6f0;
+overflow-x:hidden;
+}
+
+h1{margin-top:20px;}
+
+.carousel{
+width:90%;
+max-width:350px;
+margin:auto;
+overflow:hidden;
+border-radius:20px;
+}
+
+.carousel img{width:100%;display:none;}
+.carousel img.active{display:block;}
+
+.buttons{
+margin-top:20px;
+position:relative;
+height:200px;
+}
+
+.btn{
+border:none;
+padding:10px;
+border-radius:15px;
+width:130px;
+margin:10px;
+cursor:pointer;
+background:white;
+}
+
+.btn img{width:100%;border-radius:10px;}
+
+.heart{
+position:fixed;
+color:red;
+font-size:20px;
+animation:fall 5s linear infinite;
+}
+
+@keyframes fall{
+0%{top:-10%;opacity:1;}
+100%{top:110%;opacity:0;}
+}
+
+@keyframes zoom{
+0%{transform:translate(-50%,-50%) scale(0);}
+100%{transform:translate(-50%,-50%) scale(1);}
+}
+</style>
+</head>
+
+<body onclick="playMusic()">
+
+<h1>¿Quieres ser mi Valentín Blanca Itzel? 💕</h1>
+
+<audio id="music" loop autoplay>
+<source src="perfect.mp3" type="audio/mpeg">
+</audio>
+
+<div class="carousel">
+<img src="selfie.jpg" class="active">
+<img src="manos 2.jpg">
+<img src="collage.jpg">
+<img src="date.jpg">
+<img src="foto 1.jpg">
+<img src="kiss.jpg">
+<img src="Anillo.jpg">
+</div>
+
+<div class="buttons">
+
+<button class="btn" id="noBtn" onclick="noClick()" style="position:absolute;left:10px;">
+<img src="https://cdn-icons-png.flaticon.com/512/463/463612.png">
+<br>No 😢
+</button>
+
+<button class="btn" onclick="yesClick()">
+<img src="https://img.freepik.com/psd-gratis/simbolo-corazon-rojo-brillante-representacion-3d-corazon-brillante_191095-78483.jpg?semt=ais_hybrid&w=740&q=80">
+<br>Sí 💖
+</button>
+
+</div>
+
+<script>
+let imgs=document.querySelectorAll(".carousel img");
+let i=0;
+
+setInterval(()=>{
+imgs[i].classList.remove("active");
+i=(i+1)%imgs.length;
+imgs[i].classList.add("active");
+},2500);
+
+function playMusic(){
+document.getElementById("music").play().catch(()=>{});
+}
+
+function noClick(){
+alert("🥺 Oye… piénsalo bien… prometo cuidarte y hacerte sonreír 💕");
+}
+
+function yesClick(){
+document.body.innerHTML += `
+<div id="loveMsg" style="
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:25px;
+border-radius:20px;
+font-size:20px;
+animation:zoom 1s;
+z-index:9999;">
+💖 Te quiero mucho<br>Siempre serás importante para mí 💖
+</div>`;
+confetti();
+}
+
+// corazones desde inicio
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+},300);
+
+// confeti al decir sí
+function confetti(){
+setInterval(()=>{
+let c=document.createElement("div");
+c.innerHTML="💖";
+c.style.position="fixed";
+c.style.left=Math.random()*100+"%";
+c.style.top="-10px";
+c.style.fontSize="25px";
+c.style.animation="fall 4s linear";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),4000);
+},150);
+}
+
+// boton NO huye
+let noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("touchstart", moverNo);
+noBtn.addEventListener("mouseover", moverNo);
+
+function moverNo(){
+noBtn.style.left=Math.random()*200+"px";
+noBtn.style.top=Math.random()*120+"px";
+}
+</script>
+
+</body>
+</html>
